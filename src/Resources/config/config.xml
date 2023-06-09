@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../vendor/shopware/platform/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Prediction recommendation settings</title>
+        <title lang="de-DE">Prediction recommendation settings</title>
+
+        <input-field type="text">
+            <name>accessKey</name>
+            <label>Prediction service access key</label>
+            <label lang="de-DE">Prediction service access key</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>serviceHost</name>
+            <label>Prediction service host</label>
+            <label lang="de-DE">Prediction service host</label>
+            <defaultValue>http://pio:8000</defaultValue>
+        </input-field>
+
+        <input-field type="text">
+            <name>serviceImportHost</name>
+            <label>Prediction service access key to import data</label>
+            <label lang="de-DE">Prediction service access key to import data</label>
+            <defaultValue>http://pio:7070</defaultValue>
+        </input-field>
+
+    </card>
+</config>

@@ -1,0 +1,26 @@
+{
+    "name": "flexzt/prediction-reommendation",
+    "description": "Prediction recommendation",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleksii Hornytskyi"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Flexzt\\PredictionRecommendation\\": "src/"
+        }
+    },
+    "require": {
+        "shopware/core": "^6.4.6"
+    },
+    "extra": {
+        "shopware-plugin-class": "Flexzt\\PredictionRecommendation\\PredictionRecommendation",
+        "label": {
+            "de-DE": "Prediction recommendation",
+            "en-GB": "Prediction recommendation"
+        }
+    }
+}

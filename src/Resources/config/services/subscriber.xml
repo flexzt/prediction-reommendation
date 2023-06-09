@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="Flexzt\PredictionRecommendation\Components\Communication\Subscriber\ProductSubscriber">
+
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\PredictionEventModel"/>
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\RecommendationModel"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Flexzt\PredictionRecommendation\Components\Communication\Subscriber\CustomerSubscriber">
+
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\PredictionEventModel"/>
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\RecommendationModel"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Flexzt\PredictionRecommendation\Components\Communication\Subscriber\OrderSubscriber">
+
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\PredictionEventModel"/>
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\RecommendationModel"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+    </services>
+</container>
