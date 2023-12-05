@@ -12,6 +12,7 @@ class ConfigStruct extends Struct
     protected ?string $salesChannelId = '';
     protected string $serviceHost = '';
     protected string $serviceImportHost = '';
+    protected int $searchQueryLimit = 10;
 
     public function getAccessKey(): string
     {
@@ -51,5 +52,15 @@ class ConfigStruct extends Struct
     public function setServiceImportHost(string $serviceImportHost): void
     {
         $this->serviceImportHost = $serviceImportHost;
+    }
+
+    public function getSearchQueryLimit(): int
+    {
+        return $this->searchQueryLimit;
+    }
+
+    public function setSearchQueryLimit(int $searchQueryLimit): void
+    {
+        $this->searchQueryLimit = $searchQueryLimit;
     }
 }

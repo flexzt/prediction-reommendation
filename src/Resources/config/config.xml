@@ -8,21 +8,49 @@
         <input-field type="text">
             <name>accessKey</name>
             <label>Prediction service access key</label>
-            <label lang="de-DE">Prediction service access key</label>
+            <label lang="de-DE">Zugriffsschlüssel für den Vorhersagedienst</label>
         </input-field>
 
         <input-field type="text">
             <name>serviceHost</name>
             <label>Prediction service host</label>
-            <label lang="de-DE">Prediction service host</label>
+            <label lang="de-DE">Vorhersagedienst-Host</label>
             <defaultValue>http://pio:8000</defaultValue>
         </input-field>
 
         <input-field type="text">
             <name>serviceImportHost</name>
             <label>Prediction service access key to import data</label>
-            <label lang="de-DE">Prediction service access key to import data</label>
+            <label lang="de-DE">Zugriffsschlüssel für den Vorhersagedienst zum Importieren von Daten</label>
             <defaultValue>http://pio:7070</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>position</name>
+            <options>
+                <option>
+                    <id>top</id>
+                    <name>On top of the cart</name>
+                    <name lang="de-DE">Über dem Warenkorb</name>
+                </option>
+                <option>
+                    <id>bottom</id>
+                    <name>Below the cart</name>
+                    <name lang="de-DE">Unter dem Warenkorb</name>
+                </option>
+            </options>
+            <label>Position</label>
+            <label lang="de-DE">Position</label>
+            <helpText>Where should the cross-selling products be displayed in the shopping cart?</helpText>
+            <helpText lang="de-DE">Wo sollen die Cross-Selling Produkte im Warenkorb angezeigt werden?</helpText>
+            <defaultValue>bottom</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>searchQueryLimit</name>
+            <label>Limit products quantity</label>
+            <label lang="de-DE">Begrenzen Sie die Produktmenge</label>
+            <defaultValue>10</defaultValue>
         </input-field>
 
     </card>

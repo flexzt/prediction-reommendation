@@ -29,9 +29,18 @@ class CustomerSubscriber implements EventSubscriberInterface
 
     public function onCustomerLogin(CustomerLoginEvent $event): void
     {
-        $this->predictionEventModel->getEventClient($event->getSalesChannelId())->setUser(
-            $event->getCustomer()->getId()
-        );
+        $location = $event->getSalesChannelContext()->getShippingLocation();
+
+        try {
+            $this->predictionEventModel->getEventClient($event->getSalesChannelId())->setUser(
+                $event->getCustomer()->getId(),
+                [
+                    'countryISO' => $location->getCountry()->getIso(),
+                    'city'       => $location->getAddress()->getCity(),
+                ]
+            );
+        } catch (\Exception $e) {
+        }
     }
 
     public function onProductPageLoaded(ProductPageLoadedEvent $event): void
@@ -44,15 +53,25 @@ class CustomerSubscriber implements EventSubscriberInterface
 
         $product = $event->getPage()->getProduct();
 
-        $this->predictionEventModel->getEventClient($salesChannelContext->getSalesChannelId())
-            ->recordUserActionOnItem(
-                'view',
-                $salesChannelContext->getCustomerId(),
-                $product->getId(),
-                [
-                    'itemType' => 'product',
-                    'variant'  => $product->getProductNumber()
-                ]
-            );
+        $configuration = $this->predictionModel->loadProductSettings(
+            $product->getId(),
+            $event->getContext()
+        );
+        $optionValues = $this->predictionModel->getConfigurationValues($configuration);
+
+        try {
+            $this->predictionEventModel->getEventClient($salesChannelContext->getSalesChannelId())
+                ->recordUserActionOnItem(
+                    'view',
+                    $salesChannelContext->getCustomerId(),
+                    $product->getId(),
+                    [
+                        'itemType' => 'product',
+                        'variant'  => $product->getProductNumber(),
+                        ...$optionValues
+                    ]
+                );
+        } catch (\Exception $e) {
+        }
     }
 }

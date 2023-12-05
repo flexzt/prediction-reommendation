@@ -7,6 +7,8 @@
         <service id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\RecommendationModel">
             <argument type="service"
                       id="Flexzt\PredictionRecommendation\Components\Business\Config\ConfigModel"/>
+            <argument type="service" id="product_configurator_setting.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Product\Cart\ProductGateway"/>
         </service>
 
         <service id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\PredictionEventModel">

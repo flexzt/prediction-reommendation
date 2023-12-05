@@ -31,5 +31,13 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="Flexzt\PredictionRecommendation\Components\Communication\Subscriber\CartPageSubscriber">
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\PredictionEventModel"/>
+            <argument type="service"
+                      id="Flexzt\PredictionRecommendation\Components\Business\Recommendation\RecommendationModel"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
     </services>
 </container>

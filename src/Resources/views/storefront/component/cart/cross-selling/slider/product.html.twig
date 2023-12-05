@@ -1,0 +1,10 @@
+
+{# file to extend #}
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+{# add outer container #}
+{% block component_product_box %}
+    <div class="product-slider-item">
+        {{ parent() }}
+    </div>
+{% endblock %}
