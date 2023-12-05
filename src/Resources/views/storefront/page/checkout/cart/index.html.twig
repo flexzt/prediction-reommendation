@@ -1,0 +1,28 @@
+{# file to extend #}
+{% sw_extends '@Storefront/storefront/page/checkout/cart/index.html.twig' %}
+
+{% set cartPositionConfig = config('PredictionRecommendation.config.position') %}
+
+{# on top of the cart #}
+{% block base_flashbags_checkout %}
+    {{ parent() }}
+
+    {% if page.predictedProducts is defined and page.predictedProducts|length > 0 and cartPositionConfig == 'top' %}
+        {% sw_include '@Storefront/storefront/component/cart/cross-selling/slider.html.twig' with {
+            'products': page.predictedProducts,
+            'position': 'top'
+        } %}
+    {% endif %}
+{% endblock %}
+
+{# below the cart #}
+{% block page_checkout_cart %}
+    {{ parent() }}
+
+    {% if page.predictedProducts is defined and page.predictedProducts|length > 0 and cartPositionConfig != 'top' %}
+        {% sw_include '@Storefront/storefront/component/cart/cross-selling/slider.html.twig' with {
+            'products': page.predictedProducts,
+            'position': 'bottom'
+        } %}
+    {% endif %}
+{% endblock %}

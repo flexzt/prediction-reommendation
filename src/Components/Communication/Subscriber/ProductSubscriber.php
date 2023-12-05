@@ -29,13 +29,20 @@ class ProductSubscriber implements EventSubscriberInterface
         $eventClient = $this->predictionEventModel->getEventClient();
 
         foreach ($event->getIds() as $id) {
+            $configuration = $this->predictionModel->loadProductSettings($id, $event->getContext());
+            $optionValues = $this->predictionModel->getConfigurationValues($configuration);
+
 //            $eventClient->deleteItem($id);
-            $eventClient->setItem(
-                $id,
-                [
-                    'itemType' => 'product',
-                ]
-            );
+            try {
+                $eventClient->setItem(
+                    $id,
+                    [
+                        'itemType' => 'product',
+                        ...$optionValues
+                    ]
+                );
+            } catch (\Exception $e) {
+            }
         }
     }
 }

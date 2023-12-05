@@ -1,0 +1,83 @@
+<div class="cms-block-product-slider cms-block">
+    <div class="cms-element-product-slider cart-cross-selling is--{{ position }}">
+
+        {# default shopware product slider options #}
+        {% set productSliderOptions = {
+            productboxMinWidth: '240px',
+            slider: {
+                gutter: 16,
+                autoplayButtonOutput: false,
+                nav: false,
+                controls: true,
+                autoplay: false,
+                rewind: false,
+                loop: true,
+                mouseDrag: true,
+
+                responsive: {
+                    sm: {
+                        disable: true,
+                        loop: false
+                    },
+
+                    xs: {
+                        disable: true,
+                        loop: false
+                    }
+                }
+            }
+        } %}
+
+        {% set productLoadCount = productLoadCount ? productLoadCount : 4 %}
+
+        {% set dataProductListerOptions = {
+            productStepLoad: productLoadCount,
+            productsLoaded: productLoadCount
+        } %}
+
+        <div data-product-lister="true" data-product-lister-plugin-options="{{ dataProductListerOptions|json_encode }}">
+            <div class="base-slider product-slider has-nav"
+                 data-product-slider="true"
+                 data-product-slider-options="{{ productSliderOptions|json_encode() }}">
+                <div class="cms-element-title">
+                    <p class="cms-element-title-paragraph custom-banner-title h1">{{ "cart-cross-selling.slider.header"|trans }}</p>
+                </div>
+
+                <div class="cms-element-subtitle">{{ "cart-cross-selling.slider.description"|trans }}</div>
+
+                <div class="product-slider-container"
+                     data-product-slider-container="true">
+                    {% for product in products %}
+                        {% sw_include '@Storefront/storefront/component/cart/cross-selling/slider/product.html.twig' with {
+                            'product': product,
+                            'layout': 'standard',
+                            'displayMode': 'standard'
+                        } %}
+                    {% endfor %}
+                </div>
+
+                <div class="product-slider-controls-container">
+                    <div class="base-slider-controls"
+                         data-product-slider-controls="true">
+                        <button class="base-slider-controls-prev product-slider-controls-prev">
+                            {% sw_icon 'arrow-head-left' %}
+                        </button>
+                        <button class="base-slider-controls-next product-slider-controls-next">
+                            {% sw_icon 'arrow-head-right' %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {% if products|length > productLoadCount %}
+                <div class="bottom-bar d-block d-md-none">
+                    <button
+                            class="btn show-more-products btn-secondary">
+                        <span>{{ "productLister.showMore"|trans }}</span>
+                        <span>{% sw_icon 'arrow-down-big' style { 'pack': 'icons', 'size': 'xs'} %}</span>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

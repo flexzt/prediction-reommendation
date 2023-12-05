@@ -40,15 +40,25 @@ class OrderSubscriber implements EventSubscriberInterface
         $products = $lineItems->filterByType(LineItem::PRODUCT_LINE_ITEM_TYPE);
 
         foreach ($products as $purchasedProduct) {
-            $eventClient->recordUserActionOnItem(
-                'purchase',
-                $customer->getCustomerId(),
+            $configuration = $this->predictionModel->loadProductSettings(
                 $purchasedProduct->getReferencedId(),
-                [
-                    'itemType' => 'product',
-                    'variant'  => $purchasedProduct->getPayload()['productNumber']
-                ]
+                $event->getContext()
             );
+            $optionValues = $this->predictionModel->getConfigurationValues($configuration);
+
+            try {
+                $eventClient->recordUserActionOnItem(
+                    'purchase',
+                    $customer->getCustomerId(),
+                    $purchasedProduct->getReferencedId(),
+                    [
+                        'itemType' => 'product',
+                        'variant'  => $purchasedProduct->getPayload()['productNumber'],
+                        ...$optionValues
+                    ]
+                );
+            } catch (\Exception $e) {
+            }
         }
     }
 
@@ -70,13 +80,23 @@ class OrderSubscriber implements EventSubscriberInterface
             $salesChannelContext->getSalesChannelId()
         );
 
-        $eventClient->recordUserActionOnItem(
-            'add-to-cart',
-            $salesChannelContext->getCustomerId(),
+        $configuration = $this->predictionModel->loadProductSettings(
             $event->getLineItem()->getReferencedId(),
-            [
-                'itemType' => 'product',
-            ]
+            $event->getContext()
         );
+        $optionValues = $this->predictionModel->getConfigurationValues($configuration);
+
+        try {
+            $eventClient->recordUserActionOnItem(
+                'add-to-cart',
+                $salesChannelContext->getCustomerId(),
+                $event->getLineItem()->getReferencedId(),
+                [
+                    'itemType' => 'product',
+                    ...$optionValues
+                ]
+            );
+        } catch (\Exception $e) {
+        }
     }
 }
